@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manajemen RT 316 SEMERU DAYEUH - Dark Mode</title>
+    <title>Manajemen RT SEMERU DAYEUH 316 - Dark Mode</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -20,11 +20,11 @@
         }
         .print-only { display: none; }
         
-        /* Dark Theme Background Overlay */
+        /* Dark Theme Background Overlay dengan Foto Google Drive */
         .bg-dark-custom {
             background-color: #0f172a;
             background-image: linear-gradient(to bottom, rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.94)), 
-                              url(https://lh3.googleusercontent.com/d/1UFVfM-1XDMqs8SYQqCF4rrBBfRHbsb4v);
+                              url('https://lh3.googleusercontent.com/d/1UFVfM-1XDMqs8SYQqCF4rrBBfRHbsb4v');
             background-attachment: fixed;
             background-size: cover;
             background-position: center;
@@ -193,7 +193,7 @@
                                     <th class="py-2.5 px-3">Nama Warga</th>
                                     <th class="py-2.5 px-3">Kategori IPL</th>
                                     <th class="py-2.5 px-3 text-center">Status</th>
-                                    <th class="py-2.5 px-3 text-center">Kirim Bukti / WA</th>
+                                    <th class="py-2.5 px-3 text-center admin-only hidden">Kirim Bukti / WA</th>
                                 </tr>
                             </thead>
                             <tbody id="dashWargaTbody" class="divide-y divide-slate-700/60 text-slate-200">
@@ -347,7 +347,7 @@
                 </div>
             </div>
 
-            <!-- Area Printable Laporan Keuangan (Selalu Terang untuk Print) -->
+            <!-- Area Printable Laporan Keuangan -->
             <div id="printableLaporanArea" class="bg-slate-900/95 backdrop-blur-md p-8 rounded-xl border border-slate-700/60 shadow-lg space-y-6 text-slate-100">
                 <div class="text-center border-b-2 border-slate-500 pb-4">
                     <h2 class="text-xl font-bold uppercase tracking-wider text-amber-400">RUKUN TETANGGA 316 SEMERU DAYEUH</h2>
@@ -471,7 +471,7 @@
     </main>
 
     <footer class="bg-slate-900/90 border-t border-slate-800 py-4 text-center text-xs text-slate-400 no-print mt-auto">
-        &copy; 2026 Grand Kahuripan Cluster Semeru, Dayeuh 316 - ADEM TENTREM BERSAUDARA (By Muis @y'yam)
+        &copy; 2026 Grand Kahuripan, Cluster Semeru - Dayeuh 316 (Muis @y'yam)
     </footer>
 
     <!-- Modal Login Admin -->
@@ -773,6 +773,7 @@
             if (isAdminLoggedIn) {
                 isAdminLoggedIn = false;
                 updateAdminUI();
+                renderDashboardWargaTable();
                 if (!document.getElementById('sec-pengaturan').classList.contains('hidden')) {
                     switchTab('dashboard');
                 }
@@ -789,6 +790,7 @@
                 isAdminLoggedIn = true;
                 closeModal('modalAdmin');
                 updateAdminUI();
+                renderDashboardWargaTable();
                 alert("Login Admin Berhasil!");
             } else {
                 alert("PIN Admin Salah!");
@@ -936,7 +938,7 @@
                             `<span class="px-2 py-1 bg-rose-950 border border-rose-800/60 text-rose-400 font-bold text-xs rounded-full"><i class="fa-solid fa-xmark"></i> Belum</span>`
                         }
                     </td>
-                    <td class="py-2.5 px-3 text-center">
+                    <td class="py-2.5 px-3 text-center admin-only ${isAdminLoggedIn ? '' : 'hidden'}">
                         <button onclick="sendWA('${w.hp}', '${w.nama}', '${w.noRumah}')" class="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded text-xs font-semibold flex items-center justify-center gap-1 mx-auto transition" title="Kirim Bukti Pembayaran via WA">
                             <i class="fa-brands fa-whatsapp"></i> Kirim WA
                         </button>
