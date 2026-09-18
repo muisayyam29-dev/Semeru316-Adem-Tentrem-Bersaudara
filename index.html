@@ -1364,7 +1364,6 @@
             const dateObj = new Date(`${y}-${b}-01`);
             const bulanStr = dateObj.toLocaleDateString('id-ID', { month: 'long', year: 'numeric' });
 
-            // Cek pembayaran warga pada bulan terpilih
             const targetStr = `${y}-${b}`;
             const lastTrx = dataTransaksi.find(t => 
                 t.tipe === 'masuk' && 
