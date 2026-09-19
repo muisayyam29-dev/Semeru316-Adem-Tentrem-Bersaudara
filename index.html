@@ -254,11 +254,11 @@
                             <tr>
                                 <th class="py-3 px-4">No. Rumah</th>
                                 <th class="py-3 px-4">Nama Warga</th>
-                                <th class="py-3 px-4">No HP</th>
+                                <th class="py-3 px-4 admin-only hidden">No HP</th>
                                 <th class="py-3 px-4">Agama</th>
                                 <th class="py-3 px-4">Status Rumah</th>
                                 <th class="py-3 px-4">Status IPL</th>
-                                <th class="py-3 px-4 text-center">Aksi & WhatsApp</th>
+                                <th class="py-3 px-4 text-center admin-only hidden">Aksi & WhatsApp</th>
                             </tr>
                         </thead>
                         <tbody id="wargaTbody" class="divide-y divide-slate-700/60 text-slate-200">
@@ -471,7 +471,7 @@
     </main>
 
     <footer class="bg-slate-900/90 border-t border-slate-800 py-4 text-center text-xs text-slate-400 no-print mt-auto">
-        &copy; 2026 Grand Kahuripan, Cluster Semeru - Dayeuh 316 (Muis @y'yam)
+        &copy; 2026 Grand Kahuripan, Cluster Semeru - Dayeuh 316 (muis @y'yam)
     </footer>
 
     <!-- Modal Login Admin -->
@@ -774,6 +774,7 @@
                 isAdminLoggedIn = false;
                 updateAdminUI();
                 renderDashboardWargaTable();
+                renderWargaTable();
                 if (!document.getElementById('sec-pengaturan').classList.contains('hidden')) {
                     switchTab('dashboard');
                 }
@@ -791,6 +792,7 @@
                 closeModal('modalAdmin');
                 updateAdminUI();
                 renderDashboardWargaTable();
+                renderWargaTable();
                 alert("Login Admin Berhasil!");
             } else {
                 alert("PIN Admin Salah!");
@@ -992,19 +994,19 @@
                     tr.innerHTML = `
                         <td class="py-3 px-4 font-bold text-amber-400">${w.noRumah}</td>
                         <td class="py-3 px-4 text-white">${w.nama}</td>
-                        <td class="py-3 px-4 text-slate-300">${w.hp}</td>
+                        <td class="py-3 px-4 text-slate-300 admin-only ${isAdminLoggedIn ? '' : 'hidden'}">${w.hp}</td>
                         <td class="py-3 px-4">${w.agama || '-'}</td>
                         <td class="py-3 px-4"><span class="px-2 py-0.5 text-xs rounded border ${w.statusRumah === 'Tetap' ? 'bg-blue-950 text-blue-300 border-blue-800' : 'bg-amber-950 text-amber-300 border-amber-800'}">${w.statusRumah}</span></td>
                         <td class="py-3 px-4"><span class="px-2 py-0.5 text-xs rounded bg-slate-900 border border-slate-700 text-slate-300">${w.statusIPL}</span></td>
-                        <td class="py-3 px-4 text-center">
+                        <td class="py-3 px-4 text-center admin-only ${isAdminLoggedIn ? '' : 'hidden'}">
                             <div class="flex items-center justify-center space-x-1">
                                 <button onclick="sendWA('${w.hp}', '${w.nama}', '${w.noRumah}')" class="p-1.5 bg-emerald-600 text-white rounded hover:bg-emerald-700 text-xs font-semibold flex items-center gap-1 transition" title="Kirim WA">
                                     <i class="fa-brands fa-whatsapp"></i> WA
                                 </button>
-                                <button onclick="openFormWarga(${w.id})" class="admin-only ${isAdminLoggedIn ? '' : 'hidden'} p-1.5 bg-indigo-950 border border-indigo-700/60 text-indigo-300 rounded hover:bg-indigo-900" title="Edit Data">
+                                <button onclick="openFormWarga(${w.id})" class="p-1.5 bg-indigo-950 border border-indigo-700/60 text-indigo-300 rounded hover:bg-indigo-900" title="Edit Data">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </button>
-                                <button onclick="deleteWarga(${w.id})" class="admin-only ${isAdminLoggedIn ? '' : 'hidden'} p-1.5 bg-rose-950 border border-rose-700/60 text-rose-300 rounded hover:bg-rose-900" title="Hapus Data">
+                                <button onclick="deleteWarga(${w.id})" class="p-1.5 bg-rose-950 border border-rose-700/60 text-rose-300 rounded hover:bg-rose-900" title="Hapus Data">
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             </div>
